@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Prayer times</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/jumbotron.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/purl.js"></script>
+  </head>
+  <body style="background-color:WhiteSmoke">
+    <div class="jumbotron" style="background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),url('img/home-bg.jpg');background-size:cover;color:white;text-align: center;text-shadow: 0 1px 0 black;">
+      <div class="container">
+        <h1 class="display-3">حَسْبُنَا اللَّـهُ وَنِعْمَ الْوَكِيلُ</h1>
+        <p>Allah (Alone) is Sufficient for us, and He is the Best Disposer of affairs (for us).</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+            <h4>
+            Prayer times for: <span id="date"></span>    
+            </h4>
+            <table class="table table-bordered">
+                <thead>
+                    <th>Fajr</th>
+                    <th>Dhuhr</th>
+                    <th>Asr</th>
+                    <th>Maghrib</th>
+                    <th>Isha</th>
+                </thead>
+                <tbody>
+                    <tr><td id="fajr"></td>
+                    <td id="duhr"></td>
+                    <td id="asr"></td>
+                    <td id="maghrib"></td>
+                    <td id="isha"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script type="text/javascript">
+                //var lat = $.url().param('lat') || 42.288788;
+                //var lng = $.url().param('lng') || -71.551678;
+                var lat = 42.288788;
+                var lng = -71.551678;
+                var prayerApi = "http://api.aladhan.com/timings?latitude="+ lat + "&longitude=" + lng + "&method=2&timezonestring=America/New_York";
+                $.ajax(prayerApi).done(function(data) {                                        
+                    if (data.code === 200) {
+                        var fajr = data.data.timings.Fajr;
+                        var duhr = data.data.timings.Dhuhr;
+                        var asr = data.data.timings.Asr;
+                        var maghrib = data.data.timings.Maghrib;
+                        var isha = data.data.timings.Isha;
+                        var date = data.data.date.readable;
+                        $("#fajr").html(fajr);
+                        $("#duhr").html(duhr);
+                        $("#asr").html(asr);
+                        $("#maghrib").html(maghrib);
+                        $("#isha").html(isha);
+                        $("#date").html(date);
+                    }
+                }).fail(function() {
+                    $("#prayer-times").html("SOMETHING WENT WRONG!!");
+                });
+        </script>
+        <div class="col-md-6">
+            <iframe id="forecast_embed" type="text/html" frameborder="0" height="230" width="100%"  src="http://forecast.io/embed/#lat=42.288788&lon=-71.551678"> </iframe> 
+            
+       </div>
+    </div>
+        <div class ="row">
+            <div class="col-md-6">
+                <h4>Hadith of the day</h4>
+                <hr>
+                <script type="text/javascript" src="http://ahadith.co.uk/dh_v1.1.php"></script><noscript>Please enable JavaScript to see daily hadith</noscript>
+            </div>
+            <div class="col-md-6">
+                <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" data-fw-param="?widget_parameter=%7B%22type%22%3A%22%22%2C%22sources%22%3A%5B%7B%22source%22%3A%22https%3A%2F%2Fwww.geo.tv%2Frss%2F1%2F1%22%2C%22type%22%3A%22RSS%22%7D%5D%2C%22name%22%3A%22%22%2C%22width%22%3A0%2C%22height%22%3A%22400%22%2C%22height_by_article%22%3A0%2C%22target%22%3A%22_blank%22%2C%22font%22%3A%22Arial%2C%20Helvetica%2C%20sans-serif%22%2C%22title_font_size%22%3A%2216%22%2C%22item_title_font_size%22%3A%2216%22%2C%22item_description_font_size%22%3A%2212%22%2C%22border%22%3A%22on%22%2C%22css_url%22%3A%22%22%2C%22responsive%22%3A%22on%22%2C%22text_direction%22%3A%22left%22%2C%22text_alignment%22%3A%22left%22%2C%22corner%22%3A%22rounded%22%2C%22scroll%22%3A%22on%22%2C%22auto_scroll%22%3A%22on_mc%22%2C%22auto_scroll_direction%22%3A%22up%22%2C%22auto_scroll_step_speed%22%3A%224%22%2C%22auto_scroll_mc_speed%22%3A%2220%22%2C%22sort%22%3A%22new%22%2C%22title%22%3A%22on%22%2C%22title_sentence%22%3A%22Pakistani%20News%20Headlines%22%2C%22title_link%22%3A%22%22%2C%22title_bgcolor%22%3A%22%23ededed%22%2C%22title_color%22%3A%22%23505659%22%2C%22title_bgimage%22%3A%22%22%2C%22item_bgcolor%22%3A%22%23f5f5f5%22%2C%22item_bgimage%22%3A%22%22%2C%22item_title_length%22%3A%2255%22%2C%22item_title_color%22%3A%22%232e7ec8%22%2C%22item_border_bottom%22%3A%22on%22%2C%22item_description%22%3A%22both%22%2C%22item_link%22%3A%22off%22%2C%22item_description_length%22%3A%22100%22%2C%22item_description_color%22%3A%22%23505659%22%2C%22item_date%22%3A%22on%22%2C%22item_date_format%22%3A%22%25b%20%25e%2C%20%25Y%20%25k%3A%25M%22%2C%22item_date_timezone%22%3A%22%22%2C%22item_description_style%22%3A%22thumbnail%22%2C%22item_thumbnail%22%3A%22crop%22%2C%22item_thumbnail_selection%22%3A%22auto%22%2C%22article_num%22%3A%2215%22%2C%22item_player%22%3A%22youtube%22%2C%22keyword_inc%22%3A%22%22%2C%22keyword_exc%22%3A%22%22%7D"></script>
+            </div>
+        </div> 
+      <hr>
+      <footer>
+        <p>&copy; Abrar Chaudhry 2016</p>
+      </footer>
+    </div>
+  </body>
+</html>
