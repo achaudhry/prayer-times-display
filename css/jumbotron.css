@@ -1,4 +1,11 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-bottom: 2rem;
+  padding-bottom: 0rem;
+}
+
+.section-header {
+    left: 10px;
+    bottom: 6px;
+    font-size: 18px;
+    font-weight: bold;
 }
