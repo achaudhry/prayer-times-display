@@ -29,8 +29,9 @@
    <body>
       <div id="top-dua">
          <div class="container">
-            <h1 class="display-3">حَسْبُنَا اللَّـهُ وَنِعْمَ الْوَكِيلُ</h1>
-            <p>Allah (Alone) is Sufficient for us, and He is the Best Disposer of affairs (for us).</p>
+            <h1 id="arab-dua" class="display-3"></h1>
+            <p id="eng-dua"></p>
+             <script type="text/javascript">setRandDua();</script>
          </div>
       </div>
       <div class="container-fluid">
@@ -72,6 +73,8 @@
                $.ajax(prayerApi).done(parseDates).fail(function() {
                    $("#prayer-times").html("SOMETHING WENT WRONG!!");
                });
+                
+                
             </script>
             <div class="col-sm-6">
                <iframe src="https://www.meteoblue.com/en/weather/widget/daily/boston_united-states-of-america_4930956?geoloc=fixed&days=4&tempunit=FAHRENHEIT&windunit=KILOMETER_PER_HOUR&coloured=monochrome&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=1&precipitationprobability=1&layout=dark"  frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups" style="width: 216px;height: 261px; float:right"></iframe>
