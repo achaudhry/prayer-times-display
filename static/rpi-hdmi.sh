@@ -2,9 +2,9 @@
 
 # Enable and disable HDMI output on the Raspberry Pi
 
-# Crontab Usage. Turn off 10pm to 7am
-# 00 22 * * * sh /home/pi/prayer_times/static/rpi-hdmi.sh off
-# 00 7 * * * sh /home/pi/prayer_times/static/rpi-hdmi.sh on
+# Crontab Usage. Turn off 11pm to 5am
+# 00 23 * * * sh /home/pi/prayer_times/static/rpi-hdmi.sh off
+# 00 5 * * * sh /home/pi/prayer_times/static/rpi-hdmi.sh on
 
 is_off ()
 {
