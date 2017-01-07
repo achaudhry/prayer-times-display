@@ -114,8 +114,14 @@ function setRandDua() {
     var dua = duas[randNum];
     $("#arab-dua").html(dua.arabic);
     $("#eng-dua").html(dua.eng);
-    return dua;
+    setTimeout(setRandDua, 86400000);
 }
+
+
+function setupDua() {
+    setRandDua();
+}
+
 
 
 function formatTime(time) {
@@ -158,14 +164,16 @@ function parseRandomImageResult(data) {
 
 }
 
-function setInitialBackground() {
+function setupBackground() {
     setImage('img/full-bg.jpg');
     setTimeout(updateBackground, 300000);
 }
 
 function updateBackground() {
     var randomImageApi = "https://api.unsplash.com/photos/random?orientation=portrait&query=nature&client_id=<CLIENT_ID_HERE>";
-    $.ajax(randomImageApi).done(parseRandomImageResult).fail(){console.log('Fetch failed. Forgot client id?')};
+    $.ajax(randomImageApi).done(parseRandomImageResult).fail(function () {
+        console.log('Fetch failed. Forgot client id?')
+    });
     setTimeout(updateBackground, 300000);
 }
 
