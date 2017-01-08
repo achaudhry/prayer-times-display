@@ -109,19 +109,40 @@ var duas = [{
 }];
 
 
+//helper function to build up the desired time trigger
+function getTargetTime(hour, minute) {
+    var t = new Date();
+    t.setDate(t.getDate() + 1);
+    t.setHours(hour);
+    t.setMinutes(minute);
+    t.setSeconds(0);
+    t.setMilliseconds(0);
+    return t;
+}
+
+
+function getRefreshOffsetMilliseconds(hour, minute) {
+    var timetarget = getTargetTime(hour, minute).getTime();
+    var timenow = new Date().getTime();
+    var offsetmilliseconds = timetarget - timenow;
+    console.log(offsetmilliseconds);
+    return offsetmilliseconds;
+}
+
+
+// At 6 AM every morning update this page with a new dua.
 function setRandDua() {
     var randNum = Math.floor(Math.random() * 35);
     var dua = duas[randNum];
     $("#arab-dua").html(dua.arabic);
     $("#eng-dua").html(dua.eng);
-    setTimeout(setRandDua, 86400000);
+    setTimeout(setRandDua, getRefreshOffsetMilliseconds(6, 00));
 }
 
 
 function setupDua() {
     setRandDua();
 }
-
 
 
 function formatTime(time) {
