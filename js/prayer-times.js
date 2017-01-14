@@ -136,12 +136,17 @@ function setRandDua() {
     var dua = duas[randNum];
     $("#arab-dua").html(dua.arabic);
     $("#eng-dua").html(dua.eng);
-    setTimeout(setRandDua, getRefreshOffsetMilliseconds(6, 00));
+}
+
+
+function refresh() {
+    location.reload();
 }
 
 
 function setupDua() {
     setRandDua();
+    setTimeout(refresh, getRefreshOffsetMilliseconds(5, 35));
 }
 
 
@@ -187,7 +192,7 @@ function parseRandomImageResult(data) {
 
 function setupBackground() {
     setImage('img/full-bg.jpg');
-    setTimeout(updateBackground, 300000);
+    setTimeout(updateBackground, 30000);
 }
 
 function updateBackground() {
@@ -200,7 +205,12 @@ function updateBackground() {
 
 function setImage(url) {
     var html = $('html');
-    html.css({"background": "linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)),url(" + url + ") no-repeat center center fixed"});
-    html.css({"background-size": "cover"});
+    var c = new Image();
+    c.onload = function() {
+        html.css({"background": "linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)),url(" + url + ") no-repeat center center fixed"});
+        html.css({"background-size": "cover"});
+        c = null;
+    }
+    c.src = url;
 }
 
