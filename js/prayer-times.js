@@ -109,6 +109,46 @@ var duas = [{
 }];
 
 
+// ========== Location ========
+//https://developers.google.com/web/fundamentals/native-hardware/user-location/
+function getLocation(callback) {
+    var startPos;
+    var geoSuccess = function(position) {
+        console.log(position);
+        startPos = position;
+        var lat = startPos.coords.latitude;
+        var lng = startPos.coords.longitude;
+        callback(lat, lng);
+    };
+    var geoError = function(error) {
+        switch (error.code) {
+            case error.TIMEOUT:
+                console.log('Error occurred. Error code: ' + error.code);
+                break;
+        }
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+};
+//==========================    
+
+$( document ).ready(function() {
+    setupBackground();
+    getLocation(function(lat, lng) {
+        prayTimes.setMethod('ISNA'); 
+        var d = new Date();        
+        var times = prayTimes.getTimes(d, [lat, lng], getOffsetInHrs(d));
+        parseData(times);
+    });
+});
+
+function getOffsetInHrs(date) {
+    var offset = date.getTimezoneOffset();
+    if (offset > 0) {
+        offset = offset * -1;
+    }
+    return offset/60;
+}
+
 //helper function to build up the desired time trigger
 function getTargetTime(hour, minute) {
     var t = new Date();
@@ -164,21 +204,19 @@ function formatTime(time) {
     return timeValue;
 }
 
-function parseDates(data) {
-    if (data.code === 200) {
-        var fajr = data.data.timings.Fajr;
-        var duhr = data.data.timings.Dhuhr;
-        var asr = data.data.timings.Asr;
-        var maghrib = data.data.timings.Maghrib;
-        var isha = data.data.timings.Isha;
-        var date = data.data.date.readable;
+function parseData(data) {
+        var fajr = data.fajr;
+        var sunrise = data.sunrise;
+        var duhr = data.dhuhr;
+        var asr = data.asr;
+        var maghrib = data.maghrib;
+        var isha = data.isha;
         $("#fajr").html(formatTime(fajr));
+        $("#sunrise").html(formatTime(sunrise));
         $("#duhr").html(formatTime(duhr));
         $("#asr").html(formatTime(asr));
         $("#maghrib").html(formatTime(maghrib));
         $("#isha").html(formatTime(isha));
-        $("#date").html(date);
-    }
 }
 
 
