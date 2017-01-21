@@ -178,7 +178,6 @@ function getRefreshOffsetMilliseconds(hour, minute) {
     var timetarget = getTargetTime(hour, minute).getTime();
     var timenow = new Date().getTime();
     var offsetmilliseconds = timetarget - timenow;
-    console.log(offsetmilliseconds);
     return offsetmilliseconds;
 }
 
@@ -230,7 +229,6 @@ function parseData(data) {
         $("#duhr").html(formatTime(duhr));
         $("#asr").html(formatTime(asr));
         $("#maghrib").html(formatTime(maghrib));
-        $("#sunset").html(formatTime(sunset));
         $("#isha").html(formatTime(isha));
 }
 
@@ -249,7 +247,7 @@ function setupBackground() {
 }
 
 function updateBackground() {
-    var randomImageApi = "https://api.unsplash.com/photos/random?orientation=portrait&query=nature&client_id=<CLIENT_ID_HERE>";
+    var randomImageApi = "https://api.unsplash.com/photos/random?orientation=portrait&query=flowers&client_id=<CLIENT_ID_HERE>";
     $.ajax(randomImageApi).done(parseRandomImageResult).fail(function () {
         console.log('Fetch failed. Forgot client id?')
     });
