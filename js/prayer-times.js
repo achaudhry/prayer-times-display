@@ -124,11 +124,25 @@ $( document ).ready(function() {
 
 
 function getOffsetInHrs(date) {
+
+    Date.prototype.stdTimezoneOffset = function() {
+        var jan = new Date(this.getFullYear(), 0, 1);
+        var jul = new Date(this.getFullYear(), 6, 1);
+        return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+    }
+
+    Date.prototype.dst = function() {
+        return this.getTimezoneOffset() < this.stdTimezoneOffset();
+    }
     var offset = date.getTimezoneOffset();
     if (offset > 0) {
         offset = offset * -1;
     }
-    return offset/60;
+    var retVal = offset / 60;
+    if (date.dst()) {
+        retVal -= 1;
+    }
+    return retVal;
 }
 
 
